@@ -1,0 +1,12 @@
+E:\core\practice\test10\test10\bin\Debug\netcoreapp2.0\test10.deps.json
+E:\core\practice\test10\test10\bin\Debug\netcoreapp2.0\test10.runtimeconfig.json
+E:\core\practice\test10\test10\bin\Debug\netcoreapp2.0\test10.runtimeconfig.dev.json
+E:\core\practice\test10\test10\bin\Debug\netcoreapp2.0\test10.dll
+E:\core\practice\test10\test10\bin\Debug\netcoreapp2.0\test10.pdb
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.csprojAssemblyReference.cache
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.AssemblyInfoInputs.cache
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.AssemblyInfo.cs
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.dll
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.pdb
+E:\core\practice\test10\test10\obj\Debug\netcoreapp2.0\test10.csproj.CoreCompileInputs.cache

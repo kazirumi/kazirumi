@@ -1,0 +1,119 @@
+﻿@using test10.Models;
+@model IEnumerable<products>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br /><br />
+@*<input class="form-control glyphicon-search glyphicon-align-center" value="" id="search" type="text" placeholder="Search Your Product" aria-label="Search">*@
+<div class="col-sm-12 row">
+    <form asp-action="getprodtypebyid" asp-controller="Home" method="post">
+        <div class="col-sm-4">
+            <select name="prodtypeid" id="productType" class="form-control col-sm-6">
+                <option value="value">Select Product Type</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-success" id="prodTypeSearch">Search By Product Type   </button>
+        </div>
+    </form>
+    <div class="col-sm-4">
+        <input class="form-control glyphicon-search glyphicon-align-center" value="" id="search" type="text" placeholder="Search Your Product" aria-label="Search">
+    </div>
+
+</div><br /><br />
+<div id="boxproduct" class="row">
+    @foreach (var prod in Model)
+    {
+        <div class="col-md-3  table-bordered ">
+            <br />
+            <div class="card col-md-4 " style="width: 18rem;">
+                <img src="~/@prod.Image" width="250px" height="250px" />
+                <div class="card-body">
+                    <label style="color:coral"><h4 class="card-title  ">@prod.Name</h4></label>
+                    @*<p class="card-text"><i class="fas fa-money-bill-wave"></i>@prod.price</p>*@
+                </div>
+                <div>
+
+                    <h8>COLOR: @prod.ProductColor</h8><br />
+                    <h8>Product Type: @prod.producttype.prodtype</h8>
+
+                    
+                </div>
+
+                <div class="card-header  ">
+                    <br />
+                    <h1 class="text-justify " style="font-size:17px;color:#ff6a00">Price: @prod.price tk</h1>
+
+                    <div class="btn btn-justified">
+                        <a asp-route-id="@prod.Id" asp-action="Details" asp-controller="Home" class=" btn btn-success "><i class="fas fa-heart"></i> Details</a>
+                        <a asp-action="addcart" asp-route-Id="@prod.Id" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Add Cart</a>
+
+                    </div>
+
+                </div><br />
+            </div>
+        </div>
+
+
+
+
+
+
+
+    }
+</div>
+
+
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.7.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+            
+            $.ajax({
+                url: '/Home/getproducttype',
+                type: 'GET',
+                datatype: 'JSON',
+                success: function (data) {
+                    //Console.log(data);
+                    //$("#").empty();
+                    $.each(data, function (i, obj) {
+                        var s = '<option value="' + obj.id + '" >' + obj.prodtype + '</option>';
+                        $("#productType").append(s);
+                    });
+                },
+                error: function (res) { }
+            });
+            $("#search").keyup(function () {
+                var a = $(this).val();
+                
+                $.ajax({
+                    url: '/Home/searchProduct/?s=' + a,
+                    type: 'GET',
+                    dataType: 'Json',
+                    success: function (data) {
+                       console.log(data);
+                        $("#boxproduct").empty();
+                        $.each(data, function (i, obj) {
+
+                            var t = obj.image;
+                            var s = ' <div class="col-md-3 table-bordered ">< br /> <div class="card col-md-4 " style="width: 18rem;">< img src = "~/'+t+'" width = "250px" height = "250px" /> <div class="card-body"><label style="color:coral"><h4 class="card-title  ">' + obj.name + '</h4></label></div><div><h8>COLOR: ' + obj.productColor + '</h8><br /><h8>Product Type: ' + obj.quantity + '</h8></div><div class="card-header  "><br /><h1 class="text-justify " style="font-size:17px;color:#ff6a00">Price: ' + obj.price + ' tk</h1><div class="btn btn-justified"><a asp-route-id="' + obj.id + '" asp-action="Details" asp-controller="Home" class=" btn btn-success "><i class="fas fa - heart"></i> Details</a><a asp-action="addcart" asp-route-Id="' + obj.id + '" class="btn btn-warning"><i class="fas fa - shopping - cart"></i> Add Cart</a></div></div><br /></div></div>';
+                            $("#boxproduct").append(s);
+
+                        });
+                    },
+                    error: function (res) {
+
+                        console.log(res);
+                    }
+                })
+
+
+            });
+
+
+        });
+
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<test10.Models.SpecialTag>
+
+@{
+    ViewData["Title"] = "Add Tag";
+}
+
+    <h1>Special Tags</h1>
+
+<p>
+    <a class="btn btn-success float-right" asp-action="Create">Create New Tags</a>
+</p>
+<br />
+<table class="table table-striped border" id="myTable">
+    
+    <thead class="table-info">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialTagname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialTagname)
+            </td>
+            <td class="float-right">
+                @*<partial name="_ButtonPartialTag" model="@item.Id" />
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                <a asp-action="Edit"  class="btn btn-primary" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                <a asp-action="Details"  class="btn btn-success" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>
+                <a asp-action="Delete"  class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section scripts{ 
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script type="text/javascript">
+      $(document).ready( function () {
+           $('#myTable').DataTable();
+        } );
+    var save='@TempData["save"]'
+    var edit='@TempData["edit"]'
+    var delet='@TempData["delete"]'
+    if (save != '') {
+        alertify.success(save);
+    }
+    if (edit != '') {
+        alertify.warning(edit);
+    }
+    if (delet != '') {
+        alertify.error(delet);
+    }
+</script>
+}

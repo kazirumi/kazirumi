@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Createrole";
+}
+
+<h2>Createrole</h2>
+
+<h1>Createrole</h1>
+
+<h2>@ViewBag.msg</h2>
+
+<div class="row">
+    <div class="col-md-4 col-md-ofset-4">
+        <form asp-action="Createrole" asp-controller="Account">
+            <input type="text" name="role" value="" placeholder="Enter New Role" class="form-control" /><br />
+            <button type="submit" class="btn btn-success">Confirm</button>
+        </form>
+    </div>
+</div>

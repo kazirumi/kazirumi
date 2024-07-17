@@ -1,0 +1,137 @@
+﻿@model test10.Models.products
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h2 class="text-info"> Product Details </h2>
+<form asp-action="addcart" asp-controller="Home" method="post">
+    <div class=" rounded border row col-sm-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Id" type="hidden" />
+            <div class="form-group row ">
+                <div class="col-4">
+                    <label asp-for="Name" class="text-dark"></label>
+                </div>
+                <div class=" col-8">
+                    <input asp-for="Name" readonly="readonly" class="form-control" />
+                </div>
+                <div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class=" col-4">
+                    <label asp-for="Quantity" class="text-dark"></label>
+                </div>
+                <div class=" col-8">
+                    <input asp-for="Quantity" readonly="readonly" class="form-control" />
+                </div>
+                <div>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ProductColor" class="text-dark"></label>
+                </div>
+                <div class=" col-8">
+                    <input asp-for="ProductColor" readonly="readonly" class="form-control" />
+                </div>
+                <div>
+                    <span asp-validation-for="ProductColor" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="producttypeId" class="text-dark"></label>
+                </div>
+                <div class=" col-8">
+                    @*<select asp-for="producttypeId"  readonly="readonly" asp-items="@ViewBag.producttypeid" class="form-control"></select>*@
+                    @*<input type="" asp-for="producttypeId" value="@Model.producttype.ID" readonly="readonly" class="form-control" />*@
+                    <h3>@Model.producttype.prodtype</h3>
+                </div>
+                <div>
+                    <span asp-validation-for="producttypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Quantity" class="text-dark"></label>
+                </div>
+                <div class=" col-8">
+                    <input asp-for="Quantity" readonly="readonly" class="form-control" />
+                    <input asp-for="price" type="hidden" readonly="readonly" class="form-control" />
+                </div>
+                <div>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <h3 style="font-size:17px;color:darkorange">Price :</h3>
+                </div>
+                <div class=" col-8">
+                    <h3 style="font-size:20px;color:darkorange">@Model.price tk</h3>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @*<a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id"> Change Product</a>*@
+                @*<a href="#" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Add Cart</a>
+                    <a asp-action="Index" class="btn btn-primary">Back to product list</a>*@
+                <a asp-action="addcart" asp-route-Id="@Model.Id" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Add Cart</a>
+                <a asp-action="Index" class="btn btn-primary">Back to product list</a>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-7">
+            <img src="~/@Model.Image" width="100%" /><br />
+            @{
+                @if (Model.IsAvailable)
+                {<img src="~/images/AVAILABLE.png" width="250px" hieght="50px" />
+
+
+                }
+                else
+                {
+                    <img src="~/images/500_F_225534502_aLk2Qu5EM1A6Jfy91mBqgeV45APDJOHj.jpg" width="250px" hieght="50px" />
+
+
+
+                }
+            }
+            @*<a href="#" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Add Cart</a>
+                <a asp-action="Index" class="btn btn-primary">Back to product list</a>*@
+        </div><br />
+    </div>
+
+
+</form>
+<br />
+
+@section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+
+
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+       
+    $(function () {
+        var addcart = '@TempData["addcart"]'
+        if (addcart != '') {
+            alertify.success(addcart);
+        }
+       
+
+    })
+    </script>
+}

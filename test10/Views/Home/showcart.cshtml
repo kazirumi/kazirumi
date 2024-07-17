@@ -1,0 +1,94 @@
+﻿@model IEnumerable<test10.Models.products>
+
+@{
+    ViewData["Title"] = "showcart";
+}
+@using System.Net.Http
+@using test10
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    List<products> products = HttpContextAccessor.HttpContext.Session.GetObject<List<products>>("cart");
+    if (products == null)
+    {
+        products = new List<products>();
+    }
+    int count = products.Count();
+}
+
+<h2>Your Cart</h2>
+
+
+<table class="table table-bordered table-hover ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ProductColor)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.producttype)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <img src="~/@item.Image" width="200px" height="150px" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductColor)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.producttype.prodtype)
+                </td>
+                <td class=" btn-justified">
+                    <a asp-action="IncreaseCart" asp-controller="Home" class="btn btn-warning" asp-route-id="@item.Id"><i class="far fa-plus-square"></i> Increase Amount</a>
+
+                    <a asp-action="RemoveCart" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-danger "><i class="fas fa-trash-alt"></i> Remove Product</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-6">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-success">Return to Home Page</a>
+    </div>
+    <div class="col-6">
+       <div class="pull-right">
+           <h3>Total Amount Of Product: @count || Total Price Of All Product: @Model.Sum(c => c.price)</h3> <br />
+              
+              <a asp-action="CheckOut" asp-controller="Order"  class="btn btn-info">Check Out or Confirm Order</a> 
+         </div> 
+        
+
+    </div>
+</div>
